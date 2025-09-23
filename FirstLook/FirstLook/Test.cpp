@@ -279,19 +279,82 @@
 //	return 0;
 //}
 #include<iostream>
-using namespace std;
+#include<assert.h>
+
+//using namespace std;
+//typedef int STDataType;
+//typedef struct Stack
+//{
+//	STDataType* a;
+//	int top;
+//	int capacity;
+//}ST;
+//
+//void STInit(ST& rs, int n = 4)
+//{
+//	rs.a = (STDataType*)malloc(n * sizeof(STDataType));
+//	rs.top = 0;
+//	rs.capacity = n;
+//}
+//
+//// 栈顶
+//void STPush(ST& rs, STDataType x)
+//{
+//	// 满了， 扩容
+//	if (rs.top == rs.capacity)
+//	{
+//		printf("扩容\n");
+//		int newcapacity = rs.capacity == 0 ? 4 : rs.capacity * 2;
+//		STDataType* tmp = (STDataType*)realloc(rs.a, newcapacity *
+//			sizeof(STDataType));
+//		if (tmp == NULL)
+//		{
+//			perror("realloc fail");
+//			return;
+//		}
+//		rs.a = tmp;
+//		rs.capacity = newcapacity;
+//	}
+//	rs.a[rs.top] = x;
+//	rs.top++;
+//}
+// 函数模版，T可以任意类型
+template<class T>
+void func(const T& val)
+{
+
+}
+void func(const int& val)
+{
+
+}
 int main()
 {
-	int a = 10;
-	// 编译报错：“ra”: 必须初始化引⽤
-	//int& ra;
-	int& b = a;
-	int c = 20;
-	// 这⾥并⾮让b引⽤c，因为C++引⽤不能改变指向，
-	// 这⾥是⼀个赋值
-	b = c;
-	cout << &a << endl;
-	cout << &b << endl;
-	cout << &c << endl;
+	const int a = 10;
+	//int rd = a;
+	//int& ra = a;
+
+	const int& ra = a;
+
+	// 引用的时候权限可以缩小，但是不能放大
+	int b = 20;
+	const int& rb = b;
+	b++;
+	//rb++;
+
+	const int& rc = 30;
+	const int& rd = (a + b);
+
+	double d = 12.34;
+	int i = d;
+	const int& ri = d;
+	//double& rd = d;
+
+	func(a);
+	func(b);
+	func(30);
+	func(a+b);
+	func(d);
+
 	return 0;
 }
