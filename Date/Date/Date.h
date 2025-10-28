@@ -30,10 +30,10 @@ public:
 	bool operator==(const Date& d);
 	bool operator!=(const Date& d);
 
-	Date operator+(int day) const;
+	Date operator+(int day);
 	Date& operator+=(int day);
 
-	Date operator-(int day) const;
+	Date operator-(int day);
 	Date& operator-=(int day);
 
 	// d1++;
@@ -53,7 +53,11 @@ public:
 	Date& operator--();
 
 	// d1 - d2
-	int operator-(const Date& d) const;
+	int operator-(const Date& d);
+
+	void operator <<(const Date& d);
+	void operator >>(const Date& d);
+
 private:
 	int _year;
 	int _month;
