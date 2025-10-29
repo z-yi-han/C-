@@ -5,7 +5,7 @@ Date::Date(int year, int month, int day )
 	_month = month;
 	_day = day;
 }
-bool Date:: CheckDate()
+bool Date:: CheckDate() const
 {
 	if (_month < 1 || _month > 12
 		|| _day < 1 || _day > GetMonthDay(_year, _month))
@@ -17,11 +17,11 @@ bool Date:: CheckDate()
 		return true;
 	}
 }
-void Date::Print()
+void Date::Print() const
 {
 	cout << _year << "/" << _month << "/" << _day<<endl;
 }
-bool Date::operator<(const Date& d)
+bool Date::operator<(const Date& d) const
 {
 	if (_year < d._year)
 	{
@@ -41,33 +41,35 @@ bool Date::operator<(const Date& d)
 
 	return false;
 }
-bool Date:: operator<=(const Date& d)
+bool Date:: operator<=(const Date& d) const
 {
 	return *this < d || *this == d;
 }
-bool Date:: operator>(const Date& d)
+bool Date:: operator>(const Date& d) const
 {
 	return !(*this <= d);
 } 
-bool Date:: operator>=(const Date& d)
+bool Date:: operator>=(const Date& d) const
 {
 	return (*this < d);
 }
-bool Date::operator==(const Date& d){
+bool Date::operator==(const Date& d) const
+{
 	return _year == d._year
 		&& _month == d._month
 		&& _day == d._day;
 }
-bool Date::operator!=(const Date& d) 
+bool Date::operator!=(const Date& d) const
 {
 	return !(*this == d);
 }
 
 
-Date Date::operator+(int day)
+Date Date::operator+(int day) const
 {
 	Date tmp = *this;
 	tmp += day;
+	return tmp;
 }
 Date& Date::operator+=(int day)
 {
@@ -87,7 +89,7 @@ Date& Date::operator+=(int day)
 	}
 	return *this;
 }
-Date Date::operator-(int day)
+Date Date::operator-(int day) const
 {
 	Date tmp = *this;
 	tmp -= day;
@@ -152,7 +154,7 @@ Date& Date::operator--()
 
 
 // d1 - d2
-int Date::operator-(const Date& d) 
+int Date::operator-(const Date& d) const
 {
 	int flag = 1;
 	Date max = *this;
@@ -174,11 +176,29 @@ int Date::operator-(const Date& d)
 }
 
 
-void Date::operator <<(const Date& d)
-{
 
+ostream& operator<<(ostream& out, const Date& d)
+{
+	out << d._year << "年" << d._month << "月" << d._day << "日" << endl;
+	return out;
 }
-void Date::operator >>(const Date& d)
+istream& operator>>(istream& in, Date& d)
 {
+	while (1)
+	{
+		cout << "请依次输入年月日:>";
+		in >> d._year >> d._month >> d._day;
 
+		if (!d.CheckDate())
+		{
+			cout << "输入日期非法:";
+			d.Print();
+			cout << "请重新输入!!!" << endl;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return in;
 }

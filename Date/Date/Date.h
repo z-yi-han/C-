@@ -3,10 +3,12 @@
 using namespace std;
 class Date
 {
+	friend ostream& operator<<(ostream& out, const Date& d);
+	friend istream& operator>>(istream& in, Date& d);
 public:
-	bool CheckDate();
+	bool CheckDate() const;
 	Date(int year = 1900, int month = 1, int day = 1);
-	void Print();
+	void Print() const;
 	// Ĭinline
 	int GetMonthDay(int year, int month) const
 	{
@@ -23,17 +25,17 @@ public:
 		return monthDayArray[month];
 	}
 
-	bool operator<(const Date& d);
-	bool operator<=(const Date& d);
-	bool operator>(const Date& d);
-	bool operator>=(const Date& d);
-	bool operator==(const Date& d);
-	bool operator!=(const Date& d);
+	bool operator<(const Date& d) const;
+	bool operator<=(const Date& d) const;
+	bool operator>(const Date& d) const;
+	bool operator>=(const Date& d) const;
+	bool operator==(const Date& d) const;
+	bool operator!=(const Date& d) const;
 
-	Date operator+(int day);
+	Date operator+(int day) const;
 	Date& operator+=(int day);
 
-	Date operator-(int day);
+	Date operator-(int day) const;
 	Date& operator-=(int day);
 
 	// d1++;
@@ -53,13 +55,16 @@ public:
 	Date& operator--();
 
 	// d1 - d2
-	int operator-(const Date& d);
+	int operator-(const Date& d) const;
 
-	void operator <<(const Date& d);
-	void operator >>(const Date& d);
+	/*void operator <<(const Date& d);
+	void operator >>(const Date& d);*/
 
 private:
 	int _year;
 	int _month;
 	int _day;
 };
+
+ostream& operator<<(ostream& out, const Date& d);
+istream& operator>>(istream& in, Date& d);
