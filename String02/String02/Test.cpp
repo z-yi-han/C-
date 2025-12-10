@@ -84,10 +84,10 @@ void test_string2()
 	}
 	cout << endl;
 	//const反向迭代器
-	const string s3("hello world");
+	const string s4("hello world");
 	//string::const_reverse_iterator rcit = s3.rbegin();
-	auto rcit = s3.rbegin();//auto简便
-	while (rcit != s3.rend())
+	auto rcit = s4.rbegin();//auto简便
+	while (rcit != s4.rend())
 	{
 		// *rcit += 2;
 		cout << *rcit << " ";
@@ -96,10 +96,70 @@ void test_string2()
 	cout << endl;
 }
 
+void TestPushBack()
+{
+	// reverse 反转  逆置
+	// reserve 保留、预留
+	string s;
+	// 提前开空间，避免扩容，提高效率
+	s.reserve(100);
+	size_t sz = s.capacity();
+	cout << "capacity changed: " << sz << '\n';
+
+	cout << "making s grow:\n";
+	for (int i = 0; i < 100; ++i)
+	{
+		s.push_back('c');
+		if (sz != s.capacity())
+		{
+			sz = s.capacity();
+			cout << "capacity changed: " << sz << '\n';
+		}
+	}
+}
+
+void test_string3()
+{
+	string s5{ "hello world" };
+	cout<<s5.length()<<endl;
+	cout << s5.size() << endl;
+	cout << s5.max_size() << endl;
+	cout << s5.capacity() << endl;
+	TestPushBack();
+
+	string s6("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+	cout << sizeof(s5) << endl;
+	cout << sizeof(s6) << endl;
+}
+void test_string4()
+{
+	string s7("hello worldxxxxxxxxxxxxx");
+	cout << s7.size() << endl;
+	cout << s7.capacity() << endl << endl;
+
+	s7.reserve(20);
+	cout << s7.size() << endl;
+	cout << s7.capacity() << endl << endl;
+
+	s7.reserve(28);
+	cout << s7.size() << endl;
+	cout << s7.capacity() << endl << endl;
+
+	s7.reserve(40);
+	cout << s7.size() << endl;
+	cout << s7.capacity() << endl << endl;
+
+	s7.clear();
+	cout << s7.size() << endl;
+	cout << s7.capacity() << endl << endl;
+
+}
 int main()
 {
 	//test_string();
 	//test_list();
-	test_string2();
+	//test_string2();
+	//test_string3();
+	test_string4();
 	return 0;
 }
